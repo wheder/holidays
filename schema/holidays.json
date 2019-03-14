@@ -1,0 +1,224 @@
+{
+  "definitions": {},
+  "$schema":"http://json-schema.org/draft-07/schema#",
+  "$id": "schema:/holidays.json",
+  "type": "object",
+  "title": "Schema for the holidays in one specific country",
+  "required": [
+    "country",
+    "regular",
+    "irregular"
+  ],
+  "properties": {
+    "country": {
+      "$id": "#/properties/country",
+      "type": "string",
+      "title": "Country",
+      "description": "ISO 3166-1 alpha-2 code",
+      "examples": [
+        "cs",
+        "sk"
+      ],
+      "minLength": 2,
+      "maxLength": 2,
+      "pattern": "^[A-Z]{2}$"
+    },
+    "regular": {
+      "$id": "#/properties/regular",
+      "type": "array",
+      "title": "List of regular holidays",
+      "description": "Holidays having same date every year",
+      "items": {
+        "$id": "#/properties/regular/items",
+        "type": "object",
+        "title": "Recurring holidays",
+        "description": "Single recurring holidays definition",
+        "required": [
+          "name",
+          "month",
+          "day"
+        ],
+        "properties": {
+          "name": {
+            "$id": "#/properties/regular/items/properties/name",
+            "type": "object",
+            "title": "Name of the holidays",
+            "required": [
+              "local"
+            ],
+            "properties": {
+              "local": {
+                "$id": "#/properties/regular/items/properties/name/properties/local",
+                "type": "string",
+                "title": "Local name of the holidays",
+                "examples": [
+                  "Štědrý den"
+                ]
+              },
+              "translations": {
+                "$id": "#/properties/regular/items/properties/name/properties/translations",
+                "type": "array",
+                "title": "The Translations Schema",
+                "items": {
+                  "$id": "#/properties/regular/items/properties/name/properties/translations/items",
+                  "type": "object",
+                  "title": "List of translations of this holidays",
+                  "required": [
+                    "lang",
+                    "name"
+                  ],
+                  "properties": {
+                    "lang": {
+                      "$id": "#/properties/regular/items/properties/name/properties/translations/items/properties/lang",
+                      "type": "string",
+                      "title": "Language of the holidays name translation",
+                      "description": "2 letter language code according to ISO 639-1",
+                      "examples": [
+                        "sk"
+                      ],
+                      "pattern": "^(.*)$"
+                    },
+                    "name": {
+                      "$id": "#/properties/regular/items/properties/name/properties/translations/items/properties/name",
+                      "type": "string",
+                      "title": "Localized name",
+                      "examples": [
+                        "Christmas eve"
+                      ],
+                      "pattern": "^(.*)$"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "from": {
+            "$id": "#/properties/regular/items/properties/from",
+            "type": "string",
+            "title": "Holidays valid FROM",
+            "description": "Date, when the Holidays were approved",
+            "examples": [
+              "1900-12-31"
+            ],
+            "format": "date"
+          },
+          "to": {
+            "$id": "#/properties/regular/items/properties/to",
+            "type": "string",
+            "title": "Holidays valid TO",
+            "description": "Date, when the Holidays were cancelled",
+            "examples": [
+              "9999-31-12"
+            ],
+            "format": "date"
+          },
+          "month": {
+            "$id": "#/properties/regular/items/properties/month",
+            "type": "integer",
+            "title": "Month",
+            "description": "In which month this holiday occurs",
+            "examples": [
+              12
+            ]
+          },
+          "day": {
+            "$id": "#/properties/regular/items/properties/day",
+            "type": "integer",
+            "title": "Day",
+            "description": "Which day of a month this holiday occurs",
+            "examples": [
+              24
+            ]
+          }
+        }
+      }
+    },
+    "irregular": {
+      "$id": "#/properties/irregular",
+      "type": "array",
+      "title": "List of irregular holidays",
+      "items": {
+        "$id": "#/properties/irregular/items",
+        "type": "object",
+        "title": "Irregular holidays definition",
+        "description": "Either recurring without regular day/month combination, or just special one-time holidays",
+        "required": [
+          "name",
+          "dates"
+        ],
+        "properties": {
+          "name": {
+            "$id": "#/properties/irregular/items/properties/name",
+            "type": "object",
+            "title": "Name of the holidays",
+            "required": [
+              "local"
+            ],
+            "properties": {
+              "local": {
+                "$id": "#/properties/irregular/items/properties/name/properties/local",
+                "type": "string",
+                "title": "Local name of the holidays",
+                "examples": [
+                  "Velký pátek"
+                ]
+              },
+              "translations": {
+                "$id": "#/properties/irregular/items/properties/name/properties/translations",
+                "type": "array",
+                "title": "List of translations of this holidays",
+                "items": {
+                  "$id": "#/properties/irregular/items/properties/name/properties/translations/items",
+                  "type": "object",
+                  "description": "Object for a single foreign language and translation of this holidays into that language",
+                  "required": [
+                    "lang",
+                    "name"
+                  ],
+                  "properties": {
+                    "lang": {
+                      "$id": "#/properties/irregular/items/properties/name/properties/translations/items/properties/lang",
+                      "type": "string",
+                      "title": "Language of the holidays name translation",
+                      "description": "2 letter language code according to ISO 639-1",
+                      "examples": [
+                        "sk"
+                      ],
+                      "pattern": "^(.*)$"
+                    },
+                    "name": {
+                      "$id": "#/properties/irregular/items/properties/name/properties/translations/items/properties/name",
+                      "type": "string",
+                      "title": "Localized name",
+                      "examples": [
+                        "Veľký piatok"
+                      ],
+                      "pattern": "^(.*)$"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "dates": {
+            "$id": "#/properties/irregular/items/properties/dates",
+            "type": "array",
+            "title": "List of dates when this holidays occur",
+            "items": {
+              "$id": "#/properties/irregular/items/properties/dates/items",
+              "type": "string",
+              "title": "Single day when this holidays occur",
+              "examples": [
+                "2016-03-25",
+                "2017-04-14",
+                "2018-03-30",
+                "2019-04-19"
+              ],
+              "format": "date"
+            }
+          }
+        }
+      }
+    }
+  }
+}
